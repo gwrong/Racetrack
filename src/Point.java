@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 
-//Defines a point, x and y coordinates and velocities
+/**
+ * Defines a point, x and y coordinates and velocities
+ * 
+ * @author Graham Wright
+ * @date 2013
+ */
 public class Point {
 	
 	//x and y coordinates of point
@@ -11,11 +16,25 @@ public class Point {
 	private int vx;
 	private int vy;
 	
+	/**
+	 * Point constructor with x and y coords
+	 * 
+	 * @param x1 The x coordinate
+	 * @param y1 The y coordinate
+	 */
 	public Point(int x1, int y2) {
 		x = x1;
 		y = y2;
 	}
 	
+	/**
+	 * Point constructor with x and y coords and velocity
+	 * 
+	 * @param x1 The x coordinate
+	 * @param y1 The y coordinate
+	 * @param v1 The velocity x component
+	 * @param v1 The velocity y component
+	 */
 	public Point(int x1, int y1, int v1, int v2) {
 		x = x1;
 		y = y1;
@@ -23,45 +42,81 @@ public class Point {
 		vy = v2;
 	}
 	
-	//Returns x velocity of the point
+	/**
+	 * Gets the x component of velocity
+	 * 
+	 * @return The x component of velocity
+	 */
 	public int getVx() {
 		return vx;
 	}
 	
-	//Returns y velocity of the point
+	/**
+	 * Gets the y component of velocity
+	 * 
+	 * @return The y component of velocity
+	 */
 	public int getVy() {
 		return vy;
 	}
 	
-	//Returns x coordinate of Point
+	/**
+	 * Gets the x coordinate
+	 * 
+	 * @return The x coordinate
+	 */
 	public int getX() {
 		return x;
 	}
 	
-	//Returns y coordinate of Point
+	/**
+	 * Gets theyx coordinate
+	 * 
+	 * @return The y coordinate
+	 */
 	public int getY() {
 		return y;
 	}
 	
-	//Returns the midpoint of this and p
+	/**
+	 * Gets the midpoint of this and point p
+	 * 
+	 * @param p Other point
+	 * @return Point midpoint
+	 */
 	public Point midpoint(Point p) {
 		return new Point((getX() + p.getX()) / 2, (getY() + p.getY()) /2 );
 	}
 	
-	//Subtracts Point p from this Point
+	/**
+	 * Subtracts Point p from this Point
+	 * 
+	 * @param p The point to be subtracted
+	 * @return Point The subtraction result
+	 */
 	public Point minus(Point p) {
 		return new Point (x - p.getX(), y - p.getY());
 	}
 	
-	//Checks to see if x and y coordinates of Points are equal
+	/**
+	 * Checks to see if x and y coordinates of Points are equal
+	 * SHOULD BE TYPE OBJECT PARAMETER BUT THIS IS OLD CODE 
+	 * 
+	 * @param p The other point
+	 * @return result of being equal
+	 */
 	public boolean equals(Point p) {
 		if(p.getX() == getX() && p.getY() == getY()) return true;
 		else return false;
 	}
 	
-	
-	//angle of line to point p from point this with respect to the 
-	//horizontal axis
+	/**
+	 * angle of line to point p from point this with respect to the 
+	 * horizontal axis
+	 * 
+	 * @param p The other point
+	 * @return double The angle
+	 */
 	public double angleTowards(Point p) {
 		int deltaX = p.getX() - this.getX();
 		int deltaY = this.getY() - p.getY();
@@ -71,9 +126,15 @@ public class Point {
         }
 		return angle;
 	}
-	
-	//Draws a line between this and point and if it doesnt cross any boundaries
-	//or passes through the finish line first returns true
+
+	/**
+	 * Draws a line between this and point and if it doesn't cross any boundaries
+	 * or passes through the finish line first returns true
+	 * 
+	 * @param p The other point
+	 * @param bounds The bounds of the racetrack
+	 * @return Whether or not it is valid
+	 */
 	public boolean inTrack(Point p, Boundaries bounds) {
 		Line l = new Line(this, p);
 		int inTrack = l.inTrack(bounds);
@@ -84,7 +145,13 @@ public class Point {
 		
 	}
 	
-	//Returns the list of the possible points that can be moved to from this point
+	/**
+	 * Returns the list of the possible points that can be moved to from this point
+	 * 
+	 * @param bounds The bounds of the racetrack
+	 * @param path The path
+	 * @return Possible points to move to
+	 */
 	public ArrayList<Point> generatePossiblePoints(Boundaries bounds, Path path) {
 		
 		ArrayList<Point> points = new ArrayList<Point>();
@@ -121,6 +188,7 @@ public class Point {
 	}
 	
 	//Visual representation of a Point (x, y)
+	@Override
 	public String toString() {
 		return "(" + x + ", " + y + ")";
 	}

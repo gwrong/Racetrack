@@ -1,7 +1,12 @@
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-//Defines a line, 2 points
+/**
+ * Defines a line (2 points)
+ * 
+ * @author Graham Wright
+ * @date 2013
+ */
 public class Line {
 
 	private Point p1;
@@ -13,8 +18,14 @@ public class Line {
     
     }
 	
-	//Vector is (deltax, deltay)
-	//Magnitude is the magnitude of the vector
+    /**
+     * The Line constructor taking in a starting point and end point
+     * Vector is (deltax, deltay)
+	 * Magnitude is the magnitude of the vector
+     * 
+     * @param p1 The starting point
+     * @param p2 The ending point
+     */
 	public Line(Point pt1, Point pt2) {
 		p1 = pt1;
 		p2 = pt2;	
@@ -22,42 +33,82 @@ public class Line {
 		magnitude = Math.sqrt(Math.pow(vector.getX(), 2) + Math.pow(vector.getY(), 2));
 	}
 	
+	/**
+     * The Line constructor taking in all coordinates
+     * 
+     * @param x1 The starting x coordinate
+     * @param y1 The starting y coordinate
+     * @param x2 The ending x coordinate
+     * @param y2 The ending y coordinate
+     */
 	public Line(int x1, int y1, int x2, int y2){
         this(new Point(x1,y1), new Point(x2,y2));
 	}
 	
-	//Returns start point
+	/**
+     * Gets the starting point
+     * 
+     * @return The Starting point
+     */
 	public Point getStart() {
 		return p1;
 	}
-	
-	//Returns the magnitude of the line
+
+	/**
+     * Gest the line magnitude
+     * 
+     * @return The magnitude of the line
+     */
 	public double getMagnitude() {
 		return magnitude;
 	}
 	
-	//Returns the angle of the line to the positive horizontal
+	/**
+     * Returns the angle of the line to the positive horizontal
+     * 
+     * @return the angle
+     */
 	public double getAngle() {
 		return p1.angleTowards(p2);
 	}
 	
-	//Returns end point
+	/**
+     * Returns the end point
+     * 
+     * @return end point
+     */
 	public Point getEnd() {
 		return p2;
 	}
 	
-	//Returns vector of the Line
+	/**
+     * Returns the vector of the line
+     * 
+     * @return the vector
+     */
 	public Point getVector() {
 		return vector;
 	}
 	
 	//Checks for two lines being equal
+	/**
+     * Checks equality
+     * SHOULD BE OBJECT TYPE TO OVERRIDE BUT OLD CODE
+     * 
+     * @param l The other line
+     * @return result of equality
+     */
 	public boolean equals(Line l) {
 		if (l.getStart().equals(getStart()) && l.getEnd().equals(getEnd())) return true;
 		else return false;
 	}
 	
-	//Decides if this line crosses line l
+	/**
+     * Decides if this line crosses line l
+     * 
+     * @param l The other line
+     * @return Whether or not they cross
+     */
 	public boolean crosses(Line l) {
 		
 		Point p = p1;
@@ -88,8 +139,13 @@ public class Line {
 		return false;
 	}
 	
-	// Checks for this line intersecting boundaries
-	// 0 - in track   1 - intersects boundary   2 - crosses finish line
+	/**
+     * Checks for this line intersecting boundaries
+	 * 0 - in track   1 - intersects boundary   2 - crosses finish line
+     * 
+     * @param bound The racetrack boundaries
+     * @return The appropriate value
+     */
 	public int inTrack(Boundaries bound) {
 		
 		ArrayList<Line> arr = bound.getBoundaries();
@@ -140,7 +196,13 @@ public class Line {
 		return check;
 	}
 	
-	//Sees if line intersects boundaries NOT INCLUDING FINISH LINE
+	/**
+     * Sees if line intersects boundaries NOT INCLUDING FINISH LINE
+     * 
+     * @param bound The racetrack boundaries
+     * @return Whether or not this intersects with the boundaries
+     * 		   not including the finish
+     */
 	public boolean intersectsBoundaries(Boundaries bound) {
 		ArrayList<Line> arr = bound.getBoundaries();
 		for(int i = 0; i < arr.size() - 1; i++) {
@@ -175,12 +237,17 @@ public class Line {
 		return false;
 	}
 	
-	//Draws the line on the grid
+	/**
+     * Draws the line
+     * 
+     * @param g The graphics object
+     */
 	public void draw(Graphics2D g) {
 		g.drawLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
 	}
 	
 	//Returns visual representation (x1, y1) to (x2, y2)
+	@Override
 	public String toString() {
 		return p1.toString() + " to " + p2.toString();
 	}

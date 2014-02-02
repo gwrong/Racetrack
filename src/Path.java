@@ -1,40 +1,77 @@
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-//Defines a path, a list of points
+/**
+ * Defines a path which is a list of points
+ * 
+ * @author Graham Wright
+ * @date 2013
+ */
 public class Path {
 
 	private ArrayList<Point> arr;
-		
+	
+	/**
+	 * Path constructor
+	 */
 	public Path() {
 		arr = new ArrayList<Point>();
 	}
 	
+	/**
+	 * Path constructor takes in starting point
+	 * 
+	 * @param p The starting point
+	 */
 	public Path(Point p) {
 		arr = new ArrayList<Point>();
 		arr.add(p);
 	}
 	
+	/**
+	 * Path constructor takes in a list of points
+	 * 
+	 * @param p The list of points
+	 */
 	public Path(ArrayList<Point> p) {
 		arr = p;
 	}
 	
+	/**
+	 * Add a point to the path
+	 * 
+	 * @param pt The point to be added
+	 */
 	public void add(Point pt) {
 		arr.add(pt);
 	}
 	
-	//Generates possible points that the last point in the path can move to
-	//given a boundaries object
+	/**
+	 * Generates possible points that the last point in the path can move to
+	 * given a boundaries object
+	 * 
+	 * @param bound The boundaries of the racetrack
+	 * @return The possible points that can be moved to
+	 */
 	public ArrayList<Point> generatePossiblePoints(Boundaries bound) {
 		return arr.get(arr.size() - 1).generatePossiblePoints(bound, this);
 	}
 	
-	//returns the list of points in the path
+	/**
+	 * Returns the list of points in the path
+	 * 
+	 * @return path list
+	 */
 	public ArrayList<Point> getPoints() {
 		return arr;
 	}
 	
-	//Returns the specified point in the path
+	/**
+	 * Returns the specified point in the path
+	 * 
+	 * @param i The index of the point
+	 * @return the Point at index i
+	 */
 	public Point get(int i) {
 		if (i >= arr.size() || i < 0) {
             return null;
@@ -78,7 +115,11 @@ public class Path {
 		return false;
 	}
 	
-	//Sees if last line intersects the rest of the path
+	/**
+	 * Sees if the last line intersects the rest of the path
+	 * 
+	 * @return whether or not the path crosses itself
+	 */
 	public boolean crossesItself() {
 		if(arr.size() < 4) return false;
 		Line temp = new Line();
@@ -92,7 +133,12 @@ public class Path {
 		return false;
 	}
 	
-	//Sees if the path has the point p in it
+	/**
+	 * Sees if the path has the point p in it
+	 * 
+	 * @param p The point being checked
+	 * @return Whether or not the point is in it
+	 */
 	public boolean has(Point p) {
 		if (this.size() > 1) {
 			for (int i = 2; i < arr.size(); i++) {
@@ -104,12 +150,44 @@ public class Path {
 		return false;
 	}
 	
-	//Returns the size of the path
+	/**
+	 * Sees if the path has the point p in it
+	 * 
+	 * @param p The point being checked
+	 * @return Whether or not the point is in it
+	 */
+	public boolean contains(Point p) {
+		for (int i = 0; i < arr.size(); i++) {
+			if (arr.get(i).equals(p)) {
+                return true;
+            }
+		}
+		return false;
+	}
+	
+	/**
+	 * Gets the size of the path
+	 * 
+	 * @return size
+	 */
 	public int size() {
 		return arr.size();
 	}
 	
-	//Draws every line in the path to the grid
+	/**
+	 * Gets the length of the path
+	 * 
+	 * @return the length
+	 */
+	public int getLength() {
+		return arr.size();
+	}
+	
+	/**
+	 * Draws each line in the path
+	 * 
+	 * @param g The Graphics object
+	 */
 	public void draw(Graphics2D g) {
 		Line l = new Line();
 		for (int i = 0; i < arr.size() - 1; i++) {
@@ -118,7 +196,11 @@ public class Path {
 		}
 	}
 	
-	//Removes the last point in the path and returns the point
+	/**
+	 * Removes the last point in the path and returns the point
+	 * 
+	 * @return the Last point in the path
+	 */
 	public Point removeLast() {
 		Point p = arr.get(arr.size() - 1);
 		arr.remove(arr.size() - 1);
@@ -126,8 +208,13 @@ public class Path {
 		
 	}
 	
-	//Decides if the path is complete (if the last 2 points form a line that
-	//crosses the finish line before any boundaries)
+	/**
+	 * Decides if the path is complete (if the last 2 points form a line that
+	 * crosses the finish line before any boundaries)
+	 * 
+	 * @param bound The boundaries of the racetrack
+	 * @return whether or not the path is complete
+	 */
 	public boolean isComplete(Boundaries bound) {
 		if (arr.size() < 2) {
             return false;
@@ -139,22 +226,9 @@ public class Path {
 		return false;	
 	}
 	
-	//Sees if the point p is in the path
-	public boolean contains(Point p) {
-		for (int i = 0; i < arr.size(); i++) {
-			if (arr.get(i).equals(p)) {
-                return true;
-            }
-		}
-		return false;
-	}
-	
-	//Returns the size of the path
-	public int getLength() {
-		return arr.size();
-	}
 	
 	//Visual representation of the path [ (x1, y1) (x2, y2) ... ]
+	@Override
 	public String toString() {
 		String s = "\n\n[";
 		for (int i = 0; i < arr.size(); i++) {

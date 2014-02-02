@@ -3,17 +3,33 @@ import java.awt.Graphics2D;
 import java.awt.List;
 import java.util.ArrayList;
 
-//Contains the actual algorithm for finding the paths
+/**
+ * Contains the actual algorithms for finding optimal paths
+ * 
+ * @author Graham Wright
+ * @date 2013
+ */
 public class Solver {
 	
-	//Takes the 2d cross product of p1 and p2  p1x*p2y - p1y*p1x
+	/**
+	 * Takes the 2d cross product of p1 and p2  p1x*p2y - p1y*p1x
+	 * 
+	 * @param p1 The first point
+	 * @param p2 The second point
+	 */
 	public static double cross(Point p1, Point p2) {
 		return (p1.getX() * p2.getY() - (p1.getY() * p2.getX()));
 		
 	}
 	
-	//Given a starting point, boundaries, and a graphics2d object, paints
-	//The fastest possible paths through the track
+	/**
+	 * Given a starting point, boundaries, and a graphics2d object, paints
+	 * the fastest possible paths through the track
+	 * 
+	 * @param p The starting point
+	 * @param bound The boundaries of the racetrack
+	 * @param g The Graphics object
+	 */
 	public void generateFastestPaths(Point p, Boundaries bound, Graphics2D g) {
         long startTime = System.currentTimeMillis();
 		
